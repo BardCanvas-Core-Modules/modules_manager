@@ -5,6 +5,7 @@
     <!-- Modules manager language definitions -->
     <!-- #################################### -->
     
+    <display_name>Modules manager</display_name>
     <description>
         Administrative modules manager, used to install, uninstall, enable or disable modules.
     </description>
@@ -48,7 +49,7 @@
             <caption>Work flags:</caption>
             <install>
                 <true>Can be installed</true>
-                <false>System-embedded</false>
+                <false>Core component</false>
             </install>
             <uninstall>
                 <true>Can be uninstalled</true>
@@ -95,6 +96,8 @@
     </per_module_fields>
     
     <task_messages>
+        <module_not_provided>You didn't specify a module to work on.</module_not_provided>
+        <invalid_action>You specified an invalid maintenance action.</invalid_action>
         <module_not_found>The specified module hasn't been found.</module_not_found>
         <already_installed>The specified module is already installed.</already_installed>
         <installed_ok>Module has been successfully installed.</installed_ok>
@@ -108,10 +111,12 @@
         <uninstalled_ko>Module wasn't completely uninstalled.</uninstalled_ko>
         <uninstalled_ok>Module has been sucessfully uninstalled.</uninstalled_ok>
         <not_enabled>The specified module is not enabled.</not_enabled>
-        <all_ops_ok><![CDATA[
-            Please <a href="{$self_link}">click here</a> to reload this page and have the admin bar updated
-        ]]></all_ops_ok>
+        <all_ops_ok>The page will be reloaded now.</all_ops_ok>
         <invalid_mode_specified>Invalid mode specified</invalid_mode_specified>
+        <issues_detected>Some issues have been detected!</issues_detected>
+        <successfull_actions>Successfull actions:</successfull_actions>
+        <failed_actions>Failed actions:</failed_actions>
+        <please_review>Please review the messages above and take proper measures to fix them.</please_review>
     </task_messages>
     
 </language>
