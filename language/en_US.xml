@@ -119,4 +119,15 @@
         <please_review>Please review the messages above and take proper measures to fix them.</please_review>
     </task_messages>
     
+    <settings_data>
+        <title>Modules manager settings</title>
+        <specs key="disable_cache" is_locked="true">
+            <title>Disable disk caching?</title>
+            <description><![CDATA[
+                Please go to the <b>modules manager</b> to toggle caching on/off.
+            ]]></description>
+            <type>yes/no</type>
+        </specs>
+    </settings_data>
+    
 </language>
