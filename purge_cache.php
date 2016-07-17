@@ -14,6 +14,5 @@ header("Content-Type: text/plain; charset=utf-8");
 if( ! $account->_is_admin ) throw_fake_404();
 
 @unlink( "{$config->datafiles_location}/cache/modules.dat" );
-include ABSPATH . "/includes/modules_autoloader.inc";
 
 echo "OK";
