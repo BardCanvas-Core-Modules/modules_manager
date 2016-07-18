@@ -6,13 +6,14 @@
     <!-- #################################### -->
     
     <display_name>Modules manager</display_name>
+    <icon>fa-puzzle-piece</icon>
     <description>
         Administrative modules manager, used to install, uninstall, enable or disable modules.
     </description>
     
     <admin>
         <menu_items>
-            <admin_menu_caption icon="fa-puzzle-piece">Modules</admin_menu_caption>
+            <admin_menu_caption>Modules</admin_menu_caption>
         </menu_items>
     </admin>
     
