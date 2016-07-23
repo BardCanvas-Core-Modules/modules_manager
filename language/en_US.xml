@@ -72,7 +72,8 @@
         <php_includes>
             <caption>System extensions:</caption>
             <no_items>None</no_items>
-            <bootstrap>Bootstrap</bootstrap>
+            <bootstrap>Engine bootstrap</bootstrap>
+            <document_handler>Document handler</document_handler>
         </php_includes>
         <template_includes>
             <caption>Template extensions:</caption>
