@@ -44,12 +44,12 @@ unset( $resorted_modules );
     
     <? if( $settings->get("modules:modules_manager.disable_cache") == "true" ): ?>
         <button onclick="change_caching_status('enabled')">
-            <span class="fa fa-toggle-on"></span>
+            <span class="fa fa-toggle-off"></span>
             <?= $current_module->language->buttons->toggle_cache->enable ?>
         </button>
     <? else: ?>
         <button onclick="change_caching_status('disabled')">
-            <span class="fa fa-toggle-off"></span>
+            <span class="fa fa-toggle-on"></span>
             <?= $current_module->language->buttons->toggle_cache->disable ?>
         </button>
         <button onclick="purge_modules_cache()" title="<?= $current_module->language->buttons->purge_cache->title ?>">
