@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <module>
-
-    <version>0.1 beta</version>
+    
+    <version>0.1 alpa</version>
     <group>System</group>
     <admin_only>true</admin_only>
     
@@ -18,13 +18,13 @@
             <url></url>
         </item>
     </menu_items>
-
+    
     <!--
     <php_includes>
         <bootstrap></bootstrap>
     </php_includes>
     -->
-
+    
     <!--
     <template_includes>
         <pre_rendering></pre_rendering>
@@ -44,5 +44,5 @@
         <post_rendering></post_rendering>
     </template_includes>
     -->
-
+    
 </module>
