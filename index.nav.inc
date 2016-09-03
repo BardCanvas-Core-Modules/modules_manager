@@ -74,6 +74,9 @@ unset( $resorted_modules );
                 
                 <td width="30%">
                     <p class="principal_data">
+                        <? if( ! empty($this_module->language->icon) ): ?>
+                            <span class="fa <?= $this_module->language->icon ?>"></span>
+                        <? endif; ?>
                         <?= empty($this_module->language->display_name) ? $module_name : $this_module->language->display_name ?>
                     </p>
                     <p>
