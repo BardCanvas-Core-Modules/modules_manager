@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <language>
     
-    <!-- #################################### -->
-    <!-- Modules manager language definitions -->
-    <!-- #################################### -->
-    
     <display_name>Modules manager</display_name>
     <icon>fa-puzzle-piece</icon>
     <description>
@@ -66,7 +62,7 @@
             </disable>
         </working_flags>
         <menu_items>
-            <caption>Entries in Admin menu:</caption>
+            <caption>Entries in admin menu:</caption>
             <no_items>None</no_items>
         </menu_items>
         <php_includes>
@@ -74,18 +70,31 @@
             <no_items>None</no_items>
             <bootstrap>Engine bootstrap</bootstrap>
             <document_handler>Document handler</document_handler>
+            <rss_feed_generator>RSS feed generator</rss_feed_generator>
+            <web_helper_before_send_mail>Web helper: before sending mail</web_helper_before_send_mail>
+            <notifications_getter>Notifications getter</notifications_getter>
         </php_includes>
         <template_includes>
             <caption>Template extensions:</caption>
             <no_items>None</no_items>
+            <always_on>CSS/JS files included always in the header.</always_on>
+            <pre_rendering>Before all output (before opening doctype)</pre_rendering>
             <html_head><![CDATA[HTML &lt;head&gt;]]></html_head>
-            <pre_header>Previous to content header</pre_header>
-            <header>Additions to content header</header>
+            <pre_header>Before opening the header</pre_header>
+            <header_top>Inside the header, above the menu</header_top>
+            <header_menu>Menu entries</header_menu>
+            <header_bottom>Below the menu</header_bottom>
+            <pre_content>Before opening the main contents loop</pre_content>
             <content_top>Above page contents</content_top>
+            <home_content>Contents of the home page</home_content>
             <content_bottom>Below page contents</content_bottom>
+            <post_content>After closing the main contents loop</post_content>
+            <pre_footer>Before opening the footer (outside of the content)</pre_footer>
             <footer_top>Above footer</footer_top>
             <footer_bottom>Below footer</footer_bottom>
             <post_footer>At the end of the document (outside the footer)</post_footer>
+            <pre_eof>Below the footer, before closing the body.</pre_eof>
+            <post_rendering>After closing the html.</post_rendering>
         </template_includes>
         <extends_to>
             <caption>Modules it extends:</caption>
@@ -122,11 +131,11 @@
     </task_messages>
     
     <settings_data>
-        <title>Modules manager settings</title>
+        <title>Modules manager</title>
         <specs key="disable_cache" is_locked="true">
             <title>Disable disk caching?</title>
             <description><![CDATA[
-                Please go to the <b>modules manager</b> to toggle caching on/off.
+                Please go to the <a href="/modules_manager/">Modules Manager</a> to toggle caching on/off.
             ]]></description>
             <type>yes/no</type>
         </specs>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<language>
+    
+    <display_name>Gestor de módulos</display_name>
+    <icon>fa-puzzle-piece</icon>
+    <description>
+        Instalación, desinstalación, activación y desactivación de módulos.
+    </description>
+    
+    <admin>
+        <menu_items>
+            <admin_menu_caption>Módulos</admin_menu_caption>
+        </menu_items>
+    </admin>
+    
+    <buttons>
+        <purge_cache>
+            <caption>Purgar caché</caption>
+            <title>Remover el caché de módulos y forzar la regeneración</title>
+        </purge_cache>
+        <toggle_cache>
+            <enable>Activar cache</enable>
+            <disable>Desactivar cache</disable>
+        </toggle_cache>
+    </buttons>
+    
+    <page_title>Gestor de módulos</page_title>
+    
+    <per_module_fields>
+        <action_buttons>
+            <install>Instalar</install>
+            <uninstall>Desinstalar</uninstall>
+            <enable>Activar</enable>
+            <disable>Desactivar</disable>
+        </action_buttons>
+        <name>Nombre/llave:</name>
+        <version>Versión:</version>
+        <uploaded>(última actualización: {$time})</uploaded>
+        <group>Groupo:</group>
+        <admin_only>
+            <caption>Funcionalidad:</caption>
+            <generic>Genérico / accessible para todos</generic>
+            <only_admins>Administrativo / sólo admins pueden accesar</only_admins>
+        </admin_only>
+        <working_flags>
+            <caption>Banderas:</caption>
+            <install>
+                <true>Puede instalarse</true>
+                <false>Componente del núcleo</false>
+            </install>
+            <uninstall>
+                <true>Puede desinstalarse</true>
+                <false>No se puede desinstalar</false>
+            </uninstall>
+            <enable>
+                <true>Puede activarse</true>
+                <false>No se puede activar</false>
+            </enable>
+            <disable>
+                <true>Puede desactivarse</true>
+                <false>No se puede desactivar</false>
+            </disable>
+        </working_flags>
+        <menu_items>
+            <caption>Entradas en menú administrativo:</caption>
+            <no_items>Ninguna</no_items>
+        </menu_items>
+        <php_includes>
+            <caption>Extensiones del sistema:</caption>
+            <no_items>Ninguna</no_items>
+            <bootstrap>Arranque del núcleo</bootstrap>
+            <document_handler>Manejador de documentos</document_handler>
+            <rss_feed_generator>Generador de feeds RSS</rss_feed_generator>
+            <web_helper_before_send_mail>Web helper: ántes de enviar correo</web_helper_before_send_mail>
+            <notifications_getter>Recopilador de notificaciones</notifications_getter>
+        </php_includes>
+        <template_includes>
+            <caption>Extensiones de plantilla:</caption>
+            <no_items>Ninguna</no_items>
+            <always_on>Archivos CSS/JS siempre presentes en el encabezado html.</always_on>
+            <pre_rendering>Antes de la salida (antes del tag "doctype")</pre_rendering>
+            <html_head><![CDATA[Encabezado HTML (&lt;head&gt;)]]></html_head>
+            <pre_header>Previo al encabezado de contenido</pre_header>
+            <header_top>Dentro del encabezado de contenido, sobre el menú principal</header_top>
+            <header_menu>Entradas del menú principal</header_menu>
+            <header_bottom>Bajo el menú principal</header_bottom>
+            <pre_content>Antes de abrir el bucle principal de contenidos</pre_content>
+            <content_top>Sobre los contenidos</content_top>
+            <home_content>Contenido específico de la página principal</home_content>
+            <content_bottom>Debajo de los contenidos</content_bottom>
+            <post_content>Tras cerrar el bucle principal de contenidos</post_content>
+            <pre_footer>Antes de abrir el pie de página (fuera del contenido)</pre_footer>
+            <footer_top>Sobre el pie de página</footer_top>
+            <footer_bottom>Bajo el pie de página</footer_bottom>
+            <post_footer>Al final del documento (debajo del footer)</post_footer>
+            <pre_eof>Bajo el pie de página, antes de cerrar el tag "body".</pre_eof>
+            <post_rendering>Tras cerrar el tag "html".</post_rendering>
+        </template_includes>
+        <extends_to>
+            <caption>Módulos que extiende:</caption>
+            <no_data>Ninguno</no_data>
+        </extends_to>
+        <extension_areas_info>
+            <caption>Puede extenderse en las siguientes áreas:</caption>
+            <no_data>Ninguna</no_data>
+        </extension_areas_info>
+    </per_module_fields>
+    
+    <task_messages>
+        <module_not_provided>No has especificado un módulo con el cual trabajar.</module_not_provided>
+        <invalid_action>Has especificado una acción de mantenimiento inválida.</invalid_action>
+        <module_not_found>El módulo no ha sido encontrado.</module_not_found>
+        <already_installed>El módulo ya ha sido instalado.</already_installed>
+        <installed_ok>El módulo se ha instalado con éxito.</installed_ok>
+        <installed_ko>El módulo no se ha instalado.</installed_ko>
+        <already_enabled>El módulo ya se había activado.</already_enabled>
+        <enabled_ok>El módulo se ha activado con éxito.</enabled_ok>
+        <enabled_ko>El módulo no se ha activado.</enabled_ko>
+        <not_installed>El módulo no ha sido instalado.</not_installed>
+        <disabled_ko>El módulo no se ha desactivado.</disabled_ko>
+        <disabled_ok>El módulo se ha desactivado con éxito.</disabled_ok>
+        <uninstalled_ko>El módulo no se ha desinstalado por completo.</uninstalled_ko>
+        <uninstalled_ok>El módulo se ha desinstalado exitosamente.</uninstalled_ok>
+        <not_enabled>El módulo no está activado.</not_enabled>
+        <all_ops_ok>La página se recargará ahora.</all_ops_ok>
+        <invalid_mode_specified>Modo inválido</invalid_mode_specified>
+        <issues_detected>¡Se han encontrado problemas!</issues_detected>
+        <successfull_actions>Aciones exitosas:</successfull_actions>
+        <failed_actions>Acciones fallidas:</failed_actions>
+        <please_review>Por favor revisa los mensajes y toma las medidas pertinentes para resolver los problemas que se hayan presentado.</please_review>
+    </task_messages>
+    
+    <settings_data>
+        <title>Gestor de módulos</title>
+        <specs key="disable_cache" is_locked="true">
+            <title>Deshabilitar caché de disco?</title>
+            <description><![CDATA[
+                Favor de ir al <a href="/modules_manager/">Gestor de módulos</a> para activar/desactivar el caché de disco.
+            ]]></description>
+            <type>yes/no</type>
+        </specs>
+    </settings_data>
+    
+</language>
