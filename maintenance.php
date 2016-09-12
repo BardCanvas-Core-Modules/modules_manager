@@ -7,14 +7,14 @@
  * @author     Alejandro Caballero - lava.caballero@gmail.com
  */
 
+use hng2_base\config;
 use hng2_base\module;
 use hng2_cache\disk_cache;
 
 include "../config.php";
 include "../includes/bootstrap.inc";
 
-if( ! $account->_is_admin ) throw_fake_404();
-
+if( $account->level < config::ADMIN_USER_LEVEL ) throw_fake_401();
 
 if( empty($_REQUEST["do_module_name"]) ) die($current_module->language->task_messages->module_not_provided);
 

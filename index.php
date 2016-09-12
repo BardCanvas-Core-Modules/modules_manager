@@ -7,10 +7,12 @@
 * @author     Alejandro Caballero - lava.caballero@gmail.com
 */
 
+use hng2_base\config;
+
 include "../config.php";
 include "../includes/bootstrap.inc";
 
-if( ! $account->_is_admin ) throw_fake_404();
+if( $account->level < config::ADMIN_USER_LEVEL ) throw_fake_401();
 
 $template->page_contents_include = "index.nav.inc";
 $template->set_page_title($current_module->language->page_title);
