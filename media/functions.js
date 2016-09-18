@@ -3,7 +3,7 @@ function do_module(action, module_name)
 {
     var url = 'maintenance.php?install_action=' + action
             + '&do_module_name=' + module_name
-            + '&wasuuup=' + parseInt(Math.random() * 1000000000000000);
+            + '&wasuuup=' + wasuuup();
     
     stop_notifications_getter();
     $.blockUI(blockUI_default_params);
@@ -24,7 +24,7 @@ function do_module(action, module_name)
 
 function purge_modules_cache()
 {
-    var url = 'purge_cache.php?wasuuup=' + parseInt(Math.random() * 1000000000000000);
+    var url = 'purge_cache.php?wasuuup=' + wasuuup();
     $.blockUI(blockUI_default_params);
     $.get(url, function(response)
     {
@@ -45,7 +45,7 @@ function change_caching_status(new_status)
     var url = 'change_caching_status.php';
     var params = {
         'new_status': new_status,
-        'wasuuup':    parseInt(Math.random() * 1000000000000000)
+        'wasuuup':    wasuuup()
     };
     $.blockUI(blockUI_default_params);
     $.get(url, params, function(response)
@@ -64,5 +64,5 @@ function change_caching_status(new_status)
 
 function reload_self()
 {
-    location.href = $_PHP_SELF + '?wasuuup=' + parseInt(Math.random() * 1000000000000000);
+    location.href = $_PHP_SELF + '?wasuuup=' + wasuuup();
 }
