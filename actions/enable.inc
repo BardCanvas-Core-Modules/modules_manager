@@ -27,9 +27,9 @@ if( $settings->get("modules:$do_module_name.enabled") == "true" )
 # Enable
 #
 
-if( file_exists(ABSPATH . "/$do_module_name/module_install.inc") )
+if( file_exists(ROOTPATH . "/$do_module_name/module_install.inc") )
 {
-    include ABSPATH . "/$do_module_name/module_install.inc";
+    include ROOTPATH . "/$do_module_name/module_install.inc";
     if( count($errors) > 0 )
     {
         $errors[] = $current_module->language->task_messages->enabled_ko;

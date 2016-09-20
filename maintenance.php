@@ -24,7 +24,7 @@ if( ! in_array($_REQUEST["install_action"], array("install", "uninstall", "enabl
 $do_module_name        = trim(stripslashes($_REQUEST["do_module_name"]));
 $module_install_action = trim($_REQUEST["install_action"]);
 
-if( ! is_file(ABSPATH . "/$do_module_name/module_info.xml"))
+if( ! is_file(ROOTPATH . "/$do_module_name/module_info.xml"))
     die($current_module->language->task_messages->module_not_found);
 
 $errors       = array();
@@ -36,7 +36,7 @@ include __DIR__ . "/actions/$module_install_action.inc";
 if( $update_cache )
 {
     $modules_cache = new disk_cache("{$config->datafiles_location}/cache/modules.dat");
-    $module = new module(ABSPATH . "/{$do_module_name}/module_info.xml");
+    $module = new module(ROOTPATH . "/{$do_module_name}/module_info.xml");
     $modules_cache->set($do_module_name, $module->serialize());
 }
 

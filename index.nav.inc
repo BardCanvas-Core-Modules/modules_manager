@@ -11,7 +11,7 @@ use hng2_base\module;
 
 $_all_modules = array();
 
-$module_dirs_pattern = ABSPATH . "/*";
+$module_dirs_pattern = ROOTPATH . "/*";
 $available_modules   = glob($module_dirs_pattern, GLOB_ONLYDIR);
 foreach($available_modules as $this_module_dir)
 {
@@ -82,7 +82,7 @@ unset( $resorted_modules );
                     <p>
                         <?
                         echo "{$current_module->language->per_module_fields->version} {$this_module->version} ";
-                        $info_xml = ABSPATH . "/{$this_module->name}/module_info.xml";
+                        $info_xml = ROOTPATH . "/{$this_module->name}/module_info.xml";
                         $last_update = date("Y-m-d H:i:s", filemtime($info_xml));
                         echo replace_escaped_vars(
                             $current_module->language->per_module_fields->uploaded, '{$time}',
