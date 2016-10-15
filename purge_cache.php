@@ -15,6 +15,8 @@ header("Content-Type: text/plain; charset=utf-8");
 
 if( $account->level < config::ADMIN_USER_LEVEL ) throw_fake_401();
 
-@unlink( "{$config->datafiles_location}/cache/modules.dat" );
+$force_regeneration = true;
+$avoid_postinits    = true;
+include ROOTPATH . "/includes/modules_autoloader.inc";
 
 echo "OK";
