@@ -62,9 +62,10 @@ unset( $resorted_modules );
 <div class="table_wrapper">
     <table id="modules_listing" class="nav_table no_highlight">
         <tbody>
-        
-        <? foreach($_all_modules as $module_name => $this_module): ?>
-            <?
+
+        <? $infos_per_handler = array(); ?>
+        <? foreach($_all_modules as $module_name => $this_module):
+            
             $tr_state = "";
             if( ! $this_module->installed  ) $tr_state = "new";
             elseif( $this_module->installed && ! $this_module->enabled ) $tr_state = "disabled";
@@ -156,8 +157,15 @@ unset( $resorted_modules );
                     </div>
                 </td>
                 
+                <? $info_handler = "{$current_module->name}_extended_info_{$this_module->name}";
+                   $infos_per_handler[$info_handler] = 0; ?>
                 <td width="70%">
-                    <p style="font-size: 1.2em;"><?= $this_module->language->description ?></p>
+                    <p style="font-size: 1.2em;">
+                        <?= $this_module->language->description ?>
+                        <span class="info_section_trigger pseudo_link" data-trigger-for="<?= $info_handler ?>"
+                              onclick="toggle_info_section('<?= $info_handler ?>')"><span
+                              class="fa fa-info-circle" title="<?= $language->toggle_info ?>"></span></span>
+                    </p>
                     
                     <p>
                         <?= $current_module->language->per_module_fields->group ?>
@@ -200,53 +208,59 @@ unset( $resorted_modules );
                         <? endif; ?>
                     </p>
                     
-                    <? if( is_object($this_module->php_includes) ): ?>
-                        <?= $current_module->language->per_module_fields->php_includes->caption ?>
-                        <ul>
-                            <? foreach($this_module->php_includes as $key => $val): ?>
-                                <li>
-                                    [<?= $key ?>] <?= $current_module->language->per_module_fields->php_includes->{$key}  ?>
-                                </li>
-                            <? endforeach; ?>
-                        </ul>
-                    <? endif; ?>
-        
-                    <? if( is_object($this_module->template_includes) ): ?>
-                        <?= $current_module->language->per_module_fields->template_includes->caption ?>
-                        <ul>
-                            <? foreach($this_module->template_includes as $key => $val): ?>
-                                <li>
-                                    [<?= $key ?>] <?= $current_module->language->per_module_fields->template_includes->{$key}  ?>
-                                </li>
-                            <? endforeach; ?>
-                        </ul>
-                    <? endif; ?>
-        
-                    <? if( is_array($this_module->extends_to) || is_object($this_module->extends_to) ): ?>
-                        <?= $current_module->language->per_module_fields->extends_to->caption ?>
-                        <ul>
-                            <? foreach($this_module->extends_to as $extended_module_key => $extended_module_case_data): ?>
-                                <li>
-                                    <?= ucwords(str_replace("_", " ", $extended_module_key)) ?>:
-                                    <ul>
-                                        <? foreach($extended_module_case_data as $extended_module_case => $extended_module_include): ?>
-                                            <li><?= ucwords(str_replace("_", " ", $extended_module_case)) ?>:
-                                                <?= ucwords(str_replace("_", " ", implode(", ", array_keys( (array) $extended_module_include )))) ?>.</li>
-                                        <? endforeach; ?>
-                                    </ul>
-                                </li>
-                            <? endforeach; ?>
-                        </ul>
-                    <? endif; ?>
-        
-                    <? if( ! empty($this_module->extension_areas_info) ): ?>
-                        <?= $current_module->language->per_module_fields->extension_areas_info->caption ?>
-                        <? $info = str_replace("\n", "</li><li>", trim($this_module->extension_areas_info) ); ?>
-                        <ul>
-                            <li><?= $info ?></li>
-                        </ul>
-                    <? endif; ?>
-                    
+                    <div class="info_handler" id="<?= $info_handler ?>"
+                         style="<? if($account->engine_prefs[$info_handler] != "visible") echo "display: none;"; ?>">
+                        <? if( is_object($this_module->php_includes) ): ?>
+                            <?= $current_module->language->per_module_fields->php_includes->caption ?>
+                            <ul>
+                                <? foreach($this_module->php_includes as $key => $val):
+                                    $infos_per_handler[$info_handler]++; ?>
+                                    <li>
+                                        [<?= $key ?>] <?= $current_module->language->per_module_fields->php_includes->{$key}  ?>
+                                    </li>
+                                <? endforeach; ?>
+                            </ul>
+                        <? endif; ?>
+                        
+                        <? if( is_object($this_module->template_includes) ):  ?>
+                            <?= $current_module->language->per_module_fields->template_includes->caption ?>
+                            <ul>
+                                <? foreach($this_module->template_includes as $key => $val):
+                                    $infos_per_handler[$info_handler]++; ?>
+                                    <li>
+                                        [<?= $key ?>] <?= $current_module->language->per_module_fields->template_includes->{$key}  ?>
+                                    </li>
+                                <? endforeach; ?>
+                            </ul>
+                        <? endif; ?>
+                        
+                        <? if( is_array($this_module->extends_to) || is_object($this_module->extends_to) ): ?>
+                            <?= $current_module->language->per_module_fields->extends_to->caption ?>
+                            <ul>
+                                <? foreach($this_module->extends_to as $extended_module_key => $extended_module_case_data):
+                                    $infos_per_handler[$info_handler]++; ?>
+                                    <li>
+                                        <?= ucwords(str_replace("_", " ", $extended_module_key)) ?>:
+                                        <ul>
+                                            <? foreach($extended_module_case_data as $extended_module_case => $extended_module_include): ?>
+                                                <li><?= ucwords(str_replace("_", " ", $extended_module_case)) ?>:
+                                                    <?= ucwords(str_replace("_", " ", implode(", ", array_keys( (array) $extended_module_include )))) ?>.</li>
+                                            <? endforeach; ?>
+                                        </ul>
+                                    </li>
+                                <? endforeach; ?>
+                            </ul>
+                        <? endif; ?>
+                        
+                        <? if( ! empty($this_module->extension_areas_info) ):
+                            $infos_per_handler[$info_handler]++; ?>
+                            <?= $current_module->language->per_module_fields->extension_areas_info->caption ?>
+                            <? $info = str_replace("\n", "</li><li>", trim($this_module->extension_areas_info) ); ?>
+                            <ul>
+                                <li><?= $info ?></li>
+                            </ul>
+                        <? endif; ?>
+                    </div>
                 </td>
                 
             </tr>
@@ -255,3 +269,11 @@ unset( $resorted_modules );
         </tbody>
     </table>
 </div>
+
+<? if( count($infos_per_handler) > 0 ): ?>
+    <script type="text/javascript">
+        <? foreach($infos_per_handler as $info_handler => $echoes): if( $echoes > 0 ) continue; ?>
+            $('.info_section_trigger[data-trigger-for="<?= $info_handler ?>"]').hide();
+        <? endforeach; ?>
+    </script>
+<? endif; ?>
