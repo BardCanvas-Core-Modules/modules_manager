@@ -8,8 +8,6 @@
  */
 
 use hng2_base\config;
-use hng2_base\module;
-use hng2_cache\disk_cache;
 
 include "../config.php";
 include "../includes/bootstrap.inc";
@@ -35,9 +33,10 @@ include __DIR__ . "/actions/$module_install_action.inc";
 
 if( $update_cache )
 {
-    $modules_cache = new disk_cache("{$config->datafiles_location}/cache/modules.dat");
-    $module = new module(ROOTPATH . "/{$do_module_name}/module_info.xml");
-    $modules_cache->set($do_module_name, $module->serialize());
+    $force_regeneration = true;
+    $avoid_postinits    = true;
+    include ROOTPATH . "/includes/modules_autoloader.inc";
+    $settings->delete("modules:modules_manager.settings_bumper");
 }
 
 if( count($messages) > 0 && count($errors) == 0 )
