@@ -1,6 +1,11 @@
 
 # Modules Manager Change Log
 
+## [1.2.6] - 2017-04-05
+
+- Added forced regeneration when cache is enabled.
+- Fixed typo in file deletions when cache is disabled.
+
 ## [1.2.5] - 2017-04-05
 
 - Added changelog.
