@@ -23,11 +23,15 @@ if( ! in_array($_GET["new_status"], array("enabled", "disabled")) )
 if( $_GET["new_status"] == "enabled" )
 {
     $settings->set("modules:modules_manager.disable_cache", "");
+    $force_regeneration = true;
+    $avoid_postinits    = true;
+    include ROOTPATH . "/includes/modules_autoloader.inc";
 }
 else
 {
     $settings->set("modules:modules_manager.disable_cache", "true");
-    @unlink( "{$config->datafiles_location}/cache/modules.dat" );
+    $files = glob("{$config->datafiles_location}/cache/modules~*.dat");
+    foreach($files as $file) @unlink($file);
 }
 
 echo "OK";
