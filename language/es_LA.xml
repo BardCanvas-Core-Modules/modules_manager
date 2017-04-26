@@ -26,6 +26,16 @@
     
     <page_title>Gestor de módulos</page_title>
     
+    <search>Buscar en módulos</search>
+    <filter_tabs>
+        <tab for="all_modules"       >Todos</tab>
+        <tab for="flag_installed"    >Instalados</tab>
+        <tab for="flag_not_installed">No instalados</tab>
+        <tab for="flag_enabled"      >Activos</tab>
+        <tab for="flag_disabled"     >Inactivos</tab>
+        <all_groups>Todos los grupos</all_groups>
+    </filter_tabs>
+    
     <per_module_fields>
         <action_buttons>
             <install>Instalar</install>

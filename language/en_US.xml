@@ -26,6 +26,16 @@
     
     <page_title>Modules manager</page_title>
     
+    <search>Search in modules</search>
+    <filter_tabs>
+        <tab for="all_modules"       >All</tab>
+        <tab for="flag_installed"    >Installed</tab>
+        <tab for="flag_not_installed">Not installed</tab>
+        <tab for="flag_enabled"      >Enabled</tab>
+        <tab for="flag_disabled"     >Disabled</tab>
+        <all_groups>All groups</all_groups>
+    </filter_tabs>
+    
     <per_module_fields>
         <action_buttons>
             <install>Install</install>

@@ -32,7 +32,7 @@ $_all_modules = $resorted_modules;
 unset( $resorted_modules );
 ?>
 
-<script type="text/javascript" src="media/functions~v<?=$config->scripts_version?>.js"></script>
+<script type="text/javascript" src="media/functions~v1.2.6-2.js"></script>
 
 <h1>
     <button class="pull-right" onclick="reload_self()">
@@ -59,8 +59,53 @@ unset( $resorted_modules );
     <? endif; ?>
 </h1>
 
+<? $selected_tab = trim(stripslashes($_GET["group"])); ?>
+<div class="tabs_bar">
+    <span id="flag_tabs">
+        <?
+        if( empty($selected_tab) ) $selected_tab = "all_modules";
+        foreach($current_module->language->filter_tabs->tab as $tab):
+            $active = trim($tab["for"]) == $selected_tab ? "state_active" : "" ?>
+            <span class="tab framed_content <?= $active ?> inlined" data-for="<?= $tab["for"] ?>" style="cursor: pointer"
+                  onmouseover="$(this).toggleClass('state_hover', true)"
+                  onmouseout="$(this).toggleClass('state_hover', false)"
+                  onclick="toggle_modules('<?= $tab["for"] ?>')">
+                <?= $tab ?>
+            </span>
+        <? endforeach; ?>
+    </span>
+    
+    <span id="modules_filter" style="display: inline-block; white-space: nowrap;">
+        <input type="text" name="filter" style="width: 150px; padding-right: 26px;"
+               placeholder="<?= $current_module->language->search ?>"
+               value="<?= trim(stripslashes($_GET["filter"])) ?>"
+               onkeyup="filter_modules()" onchange="filter_modules()">
+        <img src="<?= $config->full_root_path ?>/media/backspace.png" onclick="clear_modules_filter()"
+             style="cursor: pointer; position: absolute; margin-left: -24px; margin-top: 2px;">
+    </span>
+    
+    <?
+    $all_groups = array();
+    foreach($_all_modules as $module_name => $this_module)
+    {
+        $key = trim($this_module->group);
+        if( isset($all_groups[$key]) ) continue;
+        
+        $val = ucwords(str_replace("_", " ", trim($this_module->group)));
+        $all_groups[$key] = $val;
+    }
+    asort($all_groups);
+    ?>
+    <select id="group_filter" onchange="toggle_modules( this.options[this.selectedIndex].value )">
+        <option <? if( $selected_tab == "all_modules" ) echo "selected"; ?> value="all_modules"><?= $current_module->language->filter_tabs->all_groups ?></option>
+        <? foreach($all_groups as $key => $val): ?>
+            <option <? if($selected_tab == "group_{$key}") echo "selected"; ?> value="group_<?= $key ?>"><?= $val ?></option>
+        <? endforeach; ?>
+    </select>
+</div>
+
 <div class="table_wrapper">
-    <table id="modules_listing" class="nav_table no_highlight">
+    <table id="modules_listing" class="nav_table no_highlight" data-filter="all_modules">
         <tbody>
 
         <? $infos_per_handler = array(); ?>
@@ -69,9 +114,15 @@ unset( $resorted_modules );
             $tr_state = "";
             if( ! $this_module->installed  ) $tr_state = "new";
             elseif( $this_module->installed && ! $this_module->enabled ) $tr_state = "disabled";
+            
+            $filter_classes = "all_modules group_{$this_module->group} ";
+            if( $this_module->installed ) $filter_classes .= " flag_installed";
+            else                          $filter_classes .= " flag_not_installed";
+            if( $this_module->enabled   ) $filter_classes .= " flag_enabled";
+            else                          $filter_classes .= " flag_disabled";
             ?>
             
-            <tr class="<?= $tr_state ?>" valign="top">
+            <tr class="module <?= $tr_state ?> <?= $filter_classes ?>" valign="top">
                 
                 <td width="30%">
                     <p class="principal_data">
