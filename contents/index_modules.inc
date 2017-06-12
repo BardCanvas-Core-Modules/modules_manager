@@ -45,9 +45,8 @@ foreach($_all_modules as $module_name => $this_module):
                     time_elapsed_string($last_update_dates[$module_name])
                 );
                 ?>
+                <? $current_module->load_extensions("index", "rendering_module_after_version_info"); ?>
             </p>
-            
-            <? $current_module->load_extensions("index", "rendering_module_after_version_info"); ?>
             
             <div class="actions">
                 <? if( ! $this_module->installed ): ?>
