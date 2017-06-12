@@ -25,7 +25,8 @@ foreach($_all_modules as $module_name => $this_module):
     ?>
     
     <tr class="module <?= $tr_state ?> <?= $filter_classes ?>" valign="top"
-        data-module-group="<?= $this_module->group ?>" data-module-name="<?= $this_module->name ?>">
+        data-module-group="<?= $this_module->group ?>" data-module-name="<?= $this_module->name ?>"
+        data-package-version="<?= $this_module->version ?>">
         
         <td width="30%">
             <p class="principal_data">
