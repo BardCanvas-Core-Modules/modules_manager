@@ -26,6 +26,19 @@
     
     <page_title>Gestor de módulos</page_title>
     
+    <core_components>
+        <core>
+            <display_name>Núcleo de BardCanvas</display_name>
+            <icon>fa-cog</icon>
+            <description>Archivos del núcleo del sistema</description>
+        </core>
+        <lib>
+            <display_name>Biblioteca de BardCanvas</display_name>
+            <icon>fa-cog</icon>
+            <description>Biblioteca de dependencias del sistema</description>
+        </lib>
+    </core_components>
+    
     <search>Buscar en módulos</search>
     <filter_tabs>
         <tab for="all_modules"       >Todos</tab>

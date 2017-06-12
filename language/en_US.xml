@@ -26,6 +26,19 @@
     
     <page_title>Modules manager</page_title>
     
+    <core_components>
+        <core>
+            <display_name>BardCanvas Core</display_name>
+            <icon>fa-cog</icon>
+            <description>The BardCanvas Core Package</description>
+        </core>
+        <lib>
+            <display_name>BardCanvas Library</display_name>
+            <icon>fa-cog</icon>
+            <description>BardCanvas dependencies library</description>
+        </lib>
+    </core_components>
+    
     <search>Search in modules</search>
     <filter_tabs>
         <tab for="all_modules"       >All</tab>

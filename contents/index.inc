@@ -7,7 +7,9 @@
 
 use hng2_base\module;
 
+#
 # Module re-scanning, including uninstalled ones
+#
 
 $_all_modules = array();
 
@@ -31,10 +33,95 @@ foreach($_all_modules as $display_name => $module) $resorted_modules[$module->na
 $_all_modules = $resorted_modules;
 unset( $resorted_modules );
 
+#
+# Last local updates for modules
+#
+
+$last_update_dates = array();
+foreach($_all_modules as $module_name => $this_module)
+    $last_update_dates[$module_name] = date("Y-m-d H:i:s", filemtime(ROOTPATH . "/{$this_module->name}/module_info.xml"));
+
+#
+# Core/lib collections
+#
+
+$core = new module("");
+$core->name          = "bardcanvas_core";
+$core->group         = "core";
+$core->installed     = true;
+$core->enabled       = true;
+$core->language      = $current_module->language->core_components->core;
+$core->version       = trim(file_get_contents(ROOTPATH . "/engine_version.dat"));
+$core->admin_only    = "false";
+$core->working_flags = simplexml_load_string("<?xml version=\"1.0\" encoding=\"utf-8\"?><working_flags><install>true</install><uninstall>false</uninstall><enable>false</enable><disable>false</disable></working_flags>");
+
+$lib  = new module("");
+$lib->name          = "bardcanvas_lib";
+$lib->group         = "core";
+$lib->installed     = true;
+$lib->enabled       = true;
+$lib->language      = $current_module->language->core_components->lib;
+$lib->version       = trim(file_get_contents(ROOTPATH . "/lib/version.dat"));
+$lib->admin_only    = "false";
+$lib->working_flags = simplexml_load_string("<?xml version=\"1.0\" encoding=\"utf-8\"?><working_flags><install>true</install><uninstall>false</uninstall><enable>false</enable><disable>false</disable></working_flags>");
+
+$last_update_dates["bardcanvas_core"] = date("Y-m-d H:i:s", filemtime(ROOTPATH . "/engine_version.dat"));
+$last_update_dates["bardcanvas_lib"]  = date("Y-m-d H:i:s", filemtime(ROOTPATH . "/lib/version.dat"));
+
+#
+# Templates
+#
+
+$templates = array();
+foreach(glob(ROOTPATH . "/templates/*", GLOB_ONLYDIR) as $dir)
+{
+    $info_file = "$dir/template_info.xml";
+    if( ! file_exists($info_file) ) continue;
+    
+    $name = basename(dirname($info_file));
+    $xml  = simplexml_load_file($info_file);
+    
+    $instance = new module("");
+    $instance->name          = $name;
+    $instance->group         = trim($xml->group);
+    $instance->installed     = true;
+    $instance->enabled       = "true";
+    $instance->language      = simplexml_load_string("<?xml version=\"1.0\" encoding=\"utf-8\"?>
+        <template>
+            <display_name>{$xml->name}</display_name>
+            <icon>fa-paint-brush</icon>
+            <description>{$xml->description}</description>
+        </template>
+    ");
+    $instance->version       = trim(file_get_contents(ROOTPATH . "/lib/version.dat"));
+    $instance->admin_only    = "false";
+    $instance->working_flags = simplexml_load_string("<working_flags><install>true</install><uninstall>false</uninstall><enable>false</enable><disable>false</disable></working_flags>");
+    
+    $display_name = trim($xml->name);
+    
+    $templates["templates/$display_name"] = $instance;
+    $last_update_dates["templates/$display_name"] = date("Y-m-d H:i:s", filemtime($info_file));
+}
+asort($templates);
+$temp = array(); foreach($templates as $key => $val) $temp[$key] = $val;
+$templates = $temp; unset($temp);
+
+$_all_modules = array_merge(array("bardcanvas_core" => $core, "bardcanvas_lib" => $lib), $templates, $_all_modules);
+
+#
+# Other stuff
+#
+
 $current_module->load_extensions("index", "pre_rendering");
 ?>
 
 <script type="text/javascript" src="media/functions~v1.2.6-2.js"></script>
+<style type="text/css">
+    #modules_listing tr.core     td              { border-color:     rebeccapurple; }
+    #modules_listing tr.core     .principal_data { background-color: rebeccapurple; }
+    #modules_listing tr.template td              { border-color:     #df00df; }
+    #modules_listing tr.template .principal_data { background-color: #df00df; }
+</style>
 
 <h1>
     <button class="pull-right" onclick="reload_self()">

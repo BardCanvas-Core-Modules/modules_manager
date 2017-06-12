@@ -9,8 +9,10 @@ $infos_per_handler = array();
 foreach($_all_modules as $module_name => $this_module):
     
     $tr_state = "";
-    if( ! $this_module->installed  ) $tr_state = "new";
-    elseif( $this_module->installed && ! $this_module->enabled ) $tr_state = "disabled";
+    if(     $this_module->group == "core" )                        $tr_state = "core";
+    elseif( stristr($module_name, "templates/") !== false )        $tr_state = "template";
+    elseif( ! $this_module->installed  )                           $tr_state = "new";
+    elseif( $this_module->installed && ! $this_module->enabled )   $tr_state = "disabled";
     
     $filter_classes = "all_modules group_{$this_module->group} ";
     if( $this_module->installed ) $filter_classes .= " flag_installed";
@@ -37,11 +39,9 @@ foreach($_all_modules as $module_name => $this_module):
             <p>
                 <?
                 echo "{$current_module->language->per_module_fields->version} {$this_module->version} ";
-                $info_xml = ROOTPATH . "/{$this_module->name}/module_info.xml";
-                $last_update = date("Y-m-d H:i:s", filemtime($info_xml));
                 echo replace_escaped_vars(
                     $current_module->language->per_module_fields->uploaded, '{$time}',
-                    time_elapsed_string($last_update)
+                    time_elapsed_string($last_update_dates[$module_name])
                 );
                 ?>
             </p>
@@ -134,7 +134,7 @@ foreach($_all_modules as $module_name => $this_module):
                 
                 <?= $current_module->language->per_module_fields->admin_only->caption ?>
                 <span class="framed_content">
-                    <?= $this_module->admin_only == "true"
+                    <?= $this_module->admin_only != "true"
                         ? $current_module->language->per_module_fields->admin_only->generic
                         : $current_module->language->per_module_fields->admin_only->only_admins ?>
                 </span>
