@@ -30,6 +30,8 @@ $resorted_modules = array();
 foreach($_all_modules as $display_name => $module) $resorted_modules[$module->name] = $module;
 $_all_modules = $resorted_modules;
 unset( $resorted_modules );
+
+$current_module->load_extensions("index", "pre_rendering");
 ?>
 
 <script type="text/javascript" src="media/functions~v1.2.6-2.js"></script>
@@ -57,7 +59,11 @@ unset( $resorted_modules );
             <?= $current_module->language->buttons->purge_cache->caption ?>
         </button>
     <? endif; ?>
+    
+    <? $current_module->load_extensions("index", "extra_heading_buttons"); ?>
 </h1>
+
+<? $current_module->load_extensions("index", "pre_tabs_bar"); ?>
 
 <? $selected_tab = trim(stripslashes($_GET["group"])); ?>
 <div class="tabs_bar">
@@ -104,10 +110,12 @@ unset( $resorted_modules );
     </select>
 </div>
 
+<? $current_module->load_extensions("index", "pre_modules_listing"); ?>
+
 <div class="table_wrapper">
     <table id="modules_listing" class="nav_table no_highlight" data-filter="all_modules">
         <tbody>
-
+        
         <? $infos_per_handler = array(); ?>
         <? foreach($_all_modules as $module_name => $this_module):
             
@@ -120,16 +128,22 @@ unset( $resorted_modules );
             else                          $filter_classes .= " flag_not_installed";
             if( $this_module->enabled   ) $filter_classes .= " flag_enabled";
             else                          $filter_classes .= " flag_disabled";
+            
+            $config->globals["rendering_module"]                = $this_module;
+            $config->globals["rendering_module_filter_classes"] = $filter_classes;
             ?>
             
-            <tr class="module <?= $tr_state ?> <?= $filter_classes ?>" valign="top">
+            <tr class="module <?= $tr_state ?> <?= $filter_classes ?>" valign="top"
+                data-module-group="<?= $this_module->group ?>" data-module-name="<?= $this_module->name ?>">
                 
                 <td width="30%">
                     <p class="principal_data">
+                        <? $current_module->load_extensions("index", "rendering_module_in_principal_data_before"); ?>
                         <? if( ! empty($this_module->language->icon) ): ?>
                             <span class="fa <?= $this_module->language->icon ?>"></span>
                         <? endif; ?>
                         <?= empty($this_module->language->display_name) ? $module_name : $this_module->language->display_name ?>
+                        <? $current_module->load_extensions("index", "rendering_module_in_principal_data_after"); ?>
                     </p>
                     <p>
                         <?
@@ -142,6 +156,9 @@ unset( $resorted_modules );
                         );
                         ?>
                     </p>
+                    
+                    <? $current_module->load_extensions("index", "rendering_module_after_version_info"); ?>
+                    
                     <div class="actions">
                         <? if( ! $this_module->installed ): ?>
                             <? if($this_module->working_flags->install != "true"): ?>
@@ -212,6 +229,8 @@ unset( $resorted_modules );
                    $infos_per_handler[$info_handler] = 0; ?>
                 <td width="70%">
                     <p style="font-size: 1.2em;">
+                        <? $current_module->load_extensions("index", "rendering_module_before_description"); ?>
+                        
                         <?= $this_module->language->description ?>
                         <span class="info_section_trigger pseudo_link" data-trigger-for="<?= $info_handler ?>"
                               onclick="toggle_info_section('<?= $info_handler ?>')"><span
@@ -315,11 +334,14 @@ unset( $resorted_modules );
                 </td>
                 
             </tr>
+            
         <? endforeach; ?>
 
         </tbody>
     </table>
 </div>
+
+<? $current_module->load_extensions("index", "post_modules_listing"); ?>
 
 <? if( count($infos_per_handler) > 0 ): ?>
     <script type="text/javascript">

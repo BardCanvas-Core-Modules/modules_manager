@@ -45,4 +45,8 @@
     </template_includes>
     -->
     
+    <extension_areas_info><![CDATA[
+        Index: pre-rendering, extra heading buttons, pre tabs bar, pre/post modules listing, rendering module (in principal data before/after, after version info, before description).
+    ]]></extension_areas_info>
+    
 </module>
