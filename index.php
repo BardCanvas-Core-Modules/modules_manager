@@ -14,6 +14,6 @@ include "../includes/bootstrap.inc";
 
 if( $account->level < config::ADMIN_USER_LEVEL ) throw_fake_401();
 
-$template->page_contents_include = "index.nav.inc";
+$template->page_contents_include = "contents/index.inc";
 $template->set_page_title($current_module->language->page_title);
 include "{$template->abspath}/admin.php";
