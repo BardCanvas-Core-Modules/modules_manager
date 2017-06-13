@@ -1,6 +1,11 @@
 
 # Modules Manager Change Log
 
+## [1.4.0] - 2017-06-12
+
+- Added extension points.
+- Added core packages and installed templates to the listing.
+
 ## [1.3.0] - 2017-04-28
 
 - Added local search, tabs and group filters.
