@@ -37,13 +37,16 @@ foreach($_all_modules as $module_name => $this_module):
                 <?= empty($this_module->language->display_name) ? $module_name : $this_module->language->display_name ?>
                 <? $current_module->load_extensions("index", "rendering_module_in_principal_data_after"); ?>
             </p>
-            <p>
+            <p class="local_version_info">
                 <?
-                echo "{$current_module->language->per_module_fields->version} {$this_module->version} ";
+                echo "{$current_module->language->per_module_fields->version} ";
+                echo "<span class='local_version_details'>";
+                echo "{$this_module->version} ";
                 echo replace_escaped_vars(
                     $current_module->language->per_module_fields->uploaded, '{$time}',
                     time_elapsed_string($last_update_dates[$module_name])
                 );
+                echo "</span>"
                 ?>
                 <? $current_module->load_extensions("index", "rendering_module_after_version_info"); ?>
             </p>
