@@ -93,7 +93,7 @@ foreach(glob(ROOTPATH . "/templates/*", GLOB_ONLYDIR) as $dir)
             <description>{$xml->description}</description>
         </template>
     ");
-    $instance->version       = trim(file_get_contents(ROOTPATH . "/lib/version.dat"));
+    $instance->version       = $xml->version;
     $instance->admin_only    = "false";
     $instance->working_flags = simplexml_load_string("<working_flags><install>true</install><uninstall>false</uninstall><enable>false</enable><disable>false</disable></working_flags>");
     
