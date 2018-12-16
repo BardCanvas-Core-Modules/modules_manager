@@ -1,6 +1,10 @@
 
 # Modules Manager Change Log
 
+## [1.5.0] - 2018-12-16
+
+- Tuned modules & editable prefs caches
+
 ## [1.4.0] - 2017-06-12
 
 - Added extension points.
