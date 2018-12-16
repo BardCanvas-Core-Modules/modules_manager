@@ -30,8 +30,12 @@ if( $_GET["new_status"] == "enabled" )
 else
 {
     $settings->set("modules:modules_manager.disable_cache", "true");
-    $files = glob("{$config->datafiles_location}/cache/modules~*.dat");
-    foreach($files as $file) @unlink($file);
+    $files = glob("{$config->datafiles_location}/cache/always_on*.dat");
+        foreach($files as $file) @unlink($file);
+    $files = glob("{$config->datafiles_location}/cache/editable_prefs*.dat");
+        foreach($files as $file) @unlink($file);
+    $files = glob("{$config->datafiles_location}/cache/modules*.dat");
+        foreach($files as $file) @unlink($file);
 }
 
 echo "OK";

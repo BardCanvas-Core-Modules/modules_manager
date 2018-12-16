@@ -113,9 +113,24 @@ $_all_modules = array_merge(array("bardcanvas_core" => $core, "bardcanvas_lib" =
 #
 
 $current_module->load_extensions("index", "pre_rendering");
+
+$all_languages = array();
+foreach(glob(ROOTPATH . "/language/*.xml") as $langfile)
+{
+    $locale = str_replace(".xml", "", basename($langfile));
+    if( $locale == trim($language->info->locale) ) continue;
+    
+    $all_languages[] = $locale;
+}
+
+$all_languages[] = trim($language->info->locale);
 ?>
 
-<script type="text/javascript" src="media/functions~v1.2.6-2.js"></script>
+<script type="text/javascript">
+    $_CACHE_PURGING_TOKEN = '<?= three_layer_encrypt(WEBSITE_ID, WEBSITE_ID, ENCRYPTION_KEY, ROOTPATH) ?>';
+    $_ALL_LANGUAGES       = <?= json_encode($all_languages) ?>;
+</script>
+<script type="text/javascript" src="media/functions~v1.3.0-5.js"></script>
 <style type="text/css">
     #modules_listing tr.core     td              { border-color:     rebeccapurple; }
     #modules_listing tr.core     .principal_data { background-color: rebeccapurple; }

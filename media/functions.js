@@ -75,20 +75,38 @@ function do_module(action, module_name)
 
 function purge_modules_cache()
 {
-    var url = 'purge_cache.php?wasuuup=' + wasuuup();
+    var url = sprintf('purge_cache.php');
+    
+    var params = {
+        token:   $_CACHE_PURGING_TOKEN,
+        lang:    '',
+        wasuuup: wasuuup()
+    };
+    
+    var languages_to_purge = $_ALL_LANGUAGES.length;
+    var purged_languages   = 0;
+    
     $.blockUI(blockUI_default_params);
-    $.get(url, function(response)
+    for(var i in $_ALL_LANGUAGES)
     {
-        if( response != 'OK' )
-        {
-            $.unblockUI();
-            alert( response );
-            
-            return;
-        }
+        params.lang = $_ALL_LANGUAGES[i];
         
-        reload_self();
-    });
+        $.get(url, params, function(response)
+        {
+            purged_languages++;
+            
+            if( response !== 'OK' )
+            {
+                throw_notification(response, 'error');
+                $.unblockUI();
+                
+                return;
+            }
+            
+            if( purged_languages >= languages_to_purge )
+                reload_self();
+        });
+    }
 }
 
 function change_caching_status(new_status)
