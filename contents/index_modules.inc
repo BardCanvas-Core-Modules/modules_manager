@@ -37,6 +37,16 @@ foreach($_all_modules as $module_name => $this_module):
                 <?= empty($this_module->language->display_name) ? $module_name : $this_module->language->display_name ?>
                 <? $current_module->load_extensions("index", "rendering_module_in_principal_data_after"); ?>
             </p>
+            
+            <p class="tag">
+                <span class="inline-block nowrap pseudo_link clipboard-copy"
+                      data-clipboard-text="<?= $this_module->group ?>/<?= $this_module->name ?>">
+                    <i class="fa fa-tag fa-fw"></i>
+                    <?= $this_module->group ?>/<?= $this_module->name ?>
+                    <i class="fa fa-copy fa-fw"></i>
+                </span>
+            </p>
+            
             <p class="local_version_info">
                 <?
                 echo "{$current_module->language->per_module_fields->version} ";
