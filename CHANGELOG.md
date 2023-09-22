@@ -1,6 +1,10 @@
 
 # Modules Manager Change Log
 
+## [1.5.1] - 2023-09-22
+
+- Added group/tag in the modules brwoser.
+
 ## [1.5.0] - 2018-12-16
 
 - Tuned modules & editable prefs caches
